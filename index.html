@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>圖片作品庫 · Image Library</title>
+<meta name="description" content="持續累積的圖片作品庫：海報、圖解、教學插圖。">
+<style>
+  :root{
+    --bg:#faf7f2; --card:#fff; --ink:#2c3132; --soft:#6c7273; --faint:#9aa09f;
+    --line:#e7e1d6; --accent:#5e8c61;
+    --shadow:0 1px 2px rgba(60,50,35,.06), 0 12px 28px -18px rgba(60,50,35,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",-apple-system,"Segoe UI",sans-serif;
+    -webkit-font-smoothing:antialiased; line-height:1.6;
+  }
+  a{color:inherit}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+
+  header.top{padding:64px 0 34px;border-bottom:1px solid var(--line)}
+  .eyebrow{
+    font-size:12px;letter-spacing:.22em;color:var(--accent);font-weight:600;
+    display:flex;align-items:center;gap:10px;text-transform:uppercase;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--accent);border-radius:2px}
+  h1{
+    font-family:"Noto Serif TC","Songti TC",Georgia,serif;
+    font-size:clamp(30px,4.4vw,46px);font-weight:700;letter-spacing:.02em;
+    margin:14px 0 8px;
+  }
+  .lead{color:var(--soft);font-size:15px;max-width:640px;margin:0}
+  .meta{color:var(--faint);font-size:13px;margin-top:16px;display:flex;gap:18px;flex-wrap:wrap}
+
+  section.collection{padding:52px 0 8px;border-bottom:1px solid var(--line)}
+  section.collection:last-of-type{border-bottom:0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:22px}
+  .sec-head h2{
+    font-family:"Noto Serif TC","Songti TC",Georgia,serif;
+    font-size:24px;margin:0 0 6px;font-weight:700;
+  }
+  .sec-head p{margin:0;color:var(--soft);font-size:14px;max-width:720px}
+  .sec-tools{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .count{color:var(--faint);font-size:13px;white-space:nowrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+    border:1px solid var(--line);background:#fff;color:var(--ink);
+    padding:8px 14px;border-radius:999px;font-size:13px;transition:.18s;
+  }
+  .btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+
+  .grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));padding-bottom:38px}
+  .card{
+    background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:var(--shadow);cursor:zoom-in;transition:transform .22s ease, box-shadow .22s ease;
+    display:flex;flex-direction:column;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 2px 4px rgba(60,50,35,.06),0 22px 38px -24px rgba(60,50,35,.5)}
+  .thumb{position:relative;background:#f1ece2;aspect-ratio:16/9;overflow:hidden}
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+  .card:hover .thumb img{transform:scale(1.03)}
+  .card-body{padding:14px 16px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+  .card-title{font-size:15px;font-weight:600;letter-spacing:.01em}
+  .card-sub{font-size:12px;color:var(--faint);margin-top:3px}
+  .chip{font-size:11px;color:var(--soft);border:1px solid var(--line);border-radius:999px;padding:3px 9px;white-space:nowrap}
+
+  footer{padding:46px 0 70px;color:var(--faint);font-size:13px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  /* lightbox */
+  .lb{position:fixed;inset:0;background:rgba(24,26,26,.94);display:none;z-index:50;
+      align-items:center;justify-content:center;padding:26px;flex-direction:column;gap:14px}
+  .lb.open{display:flex}
+  .lb img{max-width:min(1600px,96vw);max-height:calc(100vh - 168px);object-fit:contain;
+          border-radius:8px;box-shadow:0 30px 80px rgba(0,0,0,.5);background:#111}
+  .lb-bar{display:flex;align-items:center;gap:18px;color:#efe9dd;font-size:14px}
+  .lb-bar a{color:#cfe3cf;text-decoration:none;border-bottom:1px solid rgba(207,227,207,.4)}
+  .lb button{
+    background:none;border:1px solid rgba(255,255,255,.28);color:#fff;border-radius:999px;
+    width:42px;height:42px;font-size:18px;cursor:pointer;transition:.15s;
+  }
+  .lb button:hover{background:rgba(255,255,255,.12)}
+  .lb .close{position:absolute;top:22px;right:24px}
+  .lb .prev{position:absolute;left:18px;top:50%;transform:translateY(-50%)}
+  .lb .next{position:absolute;right:18px;top:50%;transform:translateY(-50%)}
+  @media (max-width:680px){
+    .wrap{padding:0 18px}
+    header.top{padding:44px 0 26px}
+    .grid{gap:16px;grid-template-columns:1fr}
+    .lb .prev{left:8px}.lb .next{right:8px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Image Library</div>
+    <h1>圖片作品庫</h1>
+    <p class="lead">持續累積的海報、圖解與教學插圖。每次新增作品會放在獨立資料夾，原件可下載列印。</p>
+    <div class="meta" id="meta"></div>
+  </header>
+
+  <main id="app"></main>
+
+  <footer>
+    <span>© <span id="year"></span> · 圖片作品庫</span>
+    <span>新增作品：放入 collections/ 並執行 tools/build_manifest.py</span>
+  </footer>
+</div>
+
+<div class="lb" id="lb">
+  <button class="close" aria-label="關閉">✕</button>
+  <img id="lb-img" alt="">
+  <div class="lb-bar">
+    <button class="prev" aria-label="上一張">‹</button>
+    <span id="lb-cap"></span>
+    <button class="next" aria-label="下一張">›</button>
+    <a id="lb-dl" href="#" target="_blank" rel="noopener">下載原圖</a>
+  </div>
+</div>
+
+<script>
+const state = { flat: [], i: 0 };
+
+fetch('data/images.json')
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('meta').innerHTML =
+      `<span>${data.count} 張作品</span><span>${data.collections.length} 個系列</span><span>更新 ${data.updated}</span>`;
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const app = document.getElementById('app');
+    data.collections.forEach(col => {
+      const sec = document.createElement('section');
+      sec.className = 'collection';
+      sec.innerHTML = `
+        <div class="sec-head">
+          <div>
+            <h2>${col.title}</h2>
+            <p>${col.desc || ''}</p>
+          </div>
+          <div class="sec-tools">
+            <span class="count">${col.items.length} 張</span>
+            ${col.pdf ? `<a class="btn" href="${col.pdf}" target="_blank" rel="noopener">↓ ${col.pdf_label}</a>` : ''}
+          </div>
+        </div>
+        <div class="grid"></div>`;
+      const grid = sec.querySelector('.grid');
+      col.items.forEach(it => {
+        state.flat.push(it);
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="thumb"><img loading="lazy" src="${it.thumb}" alt="${it.title}"></div>
+          <div class="card-body">
+            <div>
+              <div class="card-title">${it.title}</div>
+              <div class="card-sub">${it.w} × ${it.h} · ${it.size}</div>
+            </div>
+            <span class="chip">${it.ratio}</span>
+          </div>`;
+        card.addEventListener('click', () => open(state.flat.indexOf(it)));
+        grid.appendChild(card);
+      });
+      app.appendChild(sec);
+    });
+  })
+  .catch(err => {
+    document.getElementById('app').innerHTML =
+      '<p style="padding:40px 0;color:#9aa09f">未能載入 data/images.json（本地預覽請用 http server）。</p>';
+  });
+
+const lb = document.getElementById('lb');
+const lbImg = document.getElementById('lb-img');
+const lbCap = document.getElementById('lb-cap');
+const lbDl = document.getElementById('lb-dl');
+
+function open(i){
+  state.i = (i + state.flat.length) % state.flat.length;
+  const it = state.flat[state.i];
+  lbImg.src = it.src;
+  lbImg.alt = it.title;
+  lbCap.textContent = `${it.title} · ${state.i + 1}/${state.flat.length}`;
+  lbDl.href = it.src;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function close(){
+  lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+lb.querySelector('.close').onclick = close;
+lb.querySelector('.prev').onclick = () => open(state.i - 1);
+lb.querySelector('.next').onclick = () => open(state.i + 1);
+lb.addEventListener('click', e => { if (e.target === lb) close(); });
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') close();
+  if (e.key === 'ArrowLeft') open(state.i - 1);
+  if (e.key === 'ArrowRight') open(state.i + 1);
+});
+</script>
+</body>
+</html>

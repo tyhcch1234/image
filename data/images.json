@@ -1,0 +1,53 @@
+{
+  "updated": "2026-10-30",
+  "count": 4,
+  "collections": [
+    {
+      "slug": "positive-education-posters",
+      "title": "正向教育海報系列",
+      "subtitle": "Positive Education Posters · 4 張 16:9",
+      "desc": "四張 16:9 正向教育海報：24 個性格強項、正向情緒 × 投入、正向關係 × 健康、意義 × 成就感。清新插畫風，適合中學生校園張貼。",
+      "date": "2026-10-30",
+      "items": [
+        {
+          "title": "01 你身上，有 24 種力量",
+          "src": "collections/positive-education-posters/01_性格強項_24種力量_16x9.png",
+          "thumb": "collections/positive-education-posters/thumbs/01_性格強項_24種力量_16x9.jpg",
+          "w": 1920,
+          "h": 1080,
+          "ratio": "1.778 : 1",
+          "size": "2.0 MB"
+        },
+        {
+          "title": "02 快樂可以練習，投入可以培養",
+          "src": "collections/positive-education-posters/02_正向情緒與投入_16x9.png",
+          "thumb": "collections/positive-education-posters/thumbs/02_正向情緒與投入_16x9.jpg",
+          "w": 1920,
+          "h": 1080,
+          "ratio": "1.778 : 1",
+          "size": "1.7 MB"
+        },
+        {
+          "title": "03 有人同行，身體先有力",
+          "src": "collections/positive-education-posters/03_正向關係與健康_16x9.png",
+          "thumb": "collections/positive-education-posters/thumbs/03_正向關係與健康_16x9.jpg",
+          "w": 1920,
+          "h": 1080,
+          "ratio": "1.778 : 1",
+          "size": "1.6 MB"
+        },
+        {
+          "title": "04 活得有意思，做到有成就",
+          "src": "collections/positive-education-posters/04_意義與成就感_16x9.png",
+          "thumb": "collections/positive-education-posters/thumbs/04_意義與成就感_16x9.jpg",
+          "w": 1920,
+          "h": 1080,
+          "ratio": "1.778 : 1",
+          "size": "1.6 MB"
+        }
+      ],
+      "pdf": "collections/positive-education-posters/正向教育海報_四張_16x9.pdf",
+      "pdf_label": "四張合集 PDF（可直接列印）"
+    }
+  ]
+}
